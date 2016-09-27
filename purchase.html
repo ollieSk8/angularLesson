@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>purchase</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body ng-app="appModule">
+<table class="table table-bordered" ng-controller="carCtrl">
+	<tr>
+		<td>
+			<input type="checkbox">全选
+		</td>
+		<td>商品</td>
+		<td>单价</td>
+		<td>数量</td>
+		<td>小计</td>
+		<td>操作</td>
+	</tr>
+	<tr ng-repeat="product in products">
+		<td><input type="checkbox"></td>
+		<td>{{product.name}}</td>
+		
+		<td>{{product.price}}</td>
+		<td>
+			<button ng-click="subtract()">-</button>
+			<input type="text" value="{{product.count}}">
+			<button ng-click="add()">+</button>
+		</td>
+		<td>{{product.price*product.count}}</td>
+		<td>
+			<button class="btn btn-danger" ng-click="remove($index)">删除</button>
+		</td>
+	</tr>
+</table>
+
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('carCtrl', ['$scope', function($scope){
+    	$scope.products=[
+    		{name:'迈向angular2',price:44,count:1},
+    		{name:'锋利的jquery',price:33,count:1},
+    		{name:'mackbookpro15',price:14280,count:1},
+
+    	];
+    	$scope.subtract=function(){
+
+    	}
+    	$scope.add=function(){
+
+    	}
+    	$scope.remove=function(index){
+    		$scope.products.splice(0,index);
+    	}
+    }]);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div ng-controller="ctrl">
+	<ul>
+     <li ng-repeat="value in phones track by $index">
+         {{value.name}}:
+         <ul>
+             <li ng-repeat="type in value.type track by $index">
+                 {{type}}{{$index}}{{$index}}
+             </li>
+         </ul>
+     </li> 
+    </ul>
+    <ul>
+        <li ng-repeat="(key,o) in obj">{{key}}:{{o}}</li>
+    </ul>
+</div>
+
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app = angular.module('appModule',[]);
+    app.controller('ctrl', ['$scope', function($scope){
+    	$scope.arrs=['苹果','苹果','小米'];
+        $scope.phones = [
+            {name:'苹果',type:['白色','金色','灰色']},
+            {name:'小米',type:['白色','黑色']},
+            {name:'华为',type:['白色']}
+        ];
+        $scope.obj={
+            name:'zfpx',
+            age:8,
+            address:'回龙观大街'
+        };
+    }]);
+
+</script>
+</body>
+</html>
