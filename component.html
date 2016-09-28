@@ -6,16 +6,27 @@
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
-<pannel></pannel>
+<pannel title="这是第一个标题1">hello world</pannel>
+<pannel title="这是第一个标题2">angular baby</pannel>
 </body>
 <script src="node_modules/angular/angular.js"></script>
 <script>
     var app=angular.module('appModule',[]);
-    //123
     app.directive('pannel',function(){
         return {
-            templateUrl:'tmpl/panel.html'
+            templateUrl:'tmpl/panel.html',
+            //第一步告诉angular保留自定义指令中的内容 transclude内嵌
+            transclude:true,//会产生独立作用域
+            //第二部将内容插入到模板中，想插入哪里就给哪个标签加一个ng-transclude
+            link:function(scope,element,attrs){
+                //声明了一个title属性 将内容声明在当前作用域下
+                scope.title=attrs['title'];//标题,会定义在根作用域下 数据获取不正确
+            },
+            //默认的指令中不会产生独立作用域，想要产生独立作用域，为了互不影响
+            //scope:true 不断绝关系
+            scope:{}//断绝关系，无法继承作用域上的任何属性
         }
     });
+
 </script>
 </html>
