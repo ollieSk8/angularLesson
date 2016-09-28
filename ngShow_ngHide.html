@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div ng-controller="myCtrl">
+    <span ng-click="toggle()" ng-bind="text"></span>
+    <p ng-show="flag">这里是正文内容</p>
+</div>
+</body>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app=angular.module('appModule',[]);
+    app.controller('myCtrl',['$scope',function($scope){
+        $scope.flag=true;
+        $scope.text='隐藏';
+        $scope.toggle=function(){
+            $scope.flag=!$scope.flag;
+            if($scope.flag){
+                $scope.text='隐藏';
+            }else{
+                $scope.text='显示';
+            }
+        }
+    }]);
+    //ng-show ng-hide 只是简单的操作样式 ng-show  ng-hide 会强制执行内部所有代码
+    //ng-if 如果不满足条件则内部代码不执行
+    //ng-if 如果不满足内部指令不执行，但是频繁切换时性能消耗比较大，搭配ng-repeat判断数据是否存在
+
+</script>
+</html>
