@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="../node_modules/angular/angular.js"></script>
+<body>
+<div ng-controller="myCtrl">
+    总价{{total}}<br>
+    {{product.name}}{{product.price}}<input ng-model="product.count"/>
+</div>
+<script>
+    var app=angular.module('appModule',[]);
+    app.controller('myCtrl',['$scope','$interval',function($scope,$interval){
+       // $scope.total=100;
+        $scope.product={name:'飞机',price:100,count:1};
+        $scope.$watch('product',function(newVal,oldVal){
+            if(newVal.count==5){
+                $interval.cancel(timer);
+            }
+            $scope.total=newVal.count*$scope.product.price;
+
+        },true);
+
+        var timer=$interval(function(){
+            $scope.product.count++;
+        },1000);
+    }]);
+</script>
+</body>
+</html>
