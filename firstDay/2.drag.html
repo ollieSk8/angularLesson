@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    div{
+        background-color:red;
+        width:100px;
+        height:100px;
+        position:absolute;
+        left:0px;
+        top:0px;
+    }
+</style>
+<body>
+<div drag></div>
+</body>
+<script src="node_modules/angular/angular.js"></script>
+<script>
+    var app=angular.module('appModule',[]);
+
+    app.directive('drag',function(){
+        return {
+            //link是唯一一个可以操作dom的地方
+            //将我们的试图和数据进行绑定的 链接函数
+            link:function(scope,element,attrs){
+                //scope 代表当前作用域
+                //element 当前指令的所在的元素默认为jq对象,用angular,element包住元素就是jq对象
+                //attrs 表示当前元素属性
+                var disX,disY;
+                element.on('mousedown',function(e){
+                    disX= e.pageX-this.offsetLeft;//鼠标距离盒子的距离
+                    disY= e.pageY-this.offsetTop;
+                    angular.element(document).on('mousemove',function(e){
+                        element.css({
+                            top: e.pageY-disY+'px',
+                            left:e.pageX-disX+'px'
+                        });
+                    });
+                    angular.element(document).on('mouseup',function(){
+                       angular.element(document).off();
+                    });
+                });
+            }
+        }
+    });
+    app.controller()
+</script>
+</html>
